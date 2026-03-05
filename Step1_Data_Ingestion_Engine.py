@@ -2,7 +2,6 @@ import pandas as pd
 import sqlite3
 import os
 
-# --- ARCHITECT'S NOTE: GLOBAL PATH MANAGEMENT ---
 # WHAT: Using a relative path strategy.
 # WHY: On GitHub, we want this script to be "Plug and Play." 
 # This command finds the folder where this specific script is saved on ANY computer.
@@ -15,14 +14,12 @@ def initialize_database():
     print("Status: Downloading Real-World NYC Data (Parquet)...")
 
     try:
-        # --- ARCHITECT'S NOTE: DATA ACQUISITION ---
         # WHAT: Pulling the Parquet file from the NYC Government Cloud.
         # WHY: Parquet is the industry standard—it's small, fast, and professional.
         data = pd.read_parquet(url)
 
         print("Status: Initializing SQL 'Vault'...")
 
-        # --- ARCHITECT'S NOTE: RELATIONAL STORAGE ---
         # WHAT: Connecting to SQLite and injecting the first 100,000 rows.
         # WHY: We use a 'Subset' to keep the "Command Center" lightning-fast.
         conn = sqlite3.connect(db_path)
@@ -36,3 +33,4 @@ def initialize_database():
 
 if __name__ == "__main__":
     initialize_database()
+
