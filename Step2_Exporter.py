@@ -2,8 +2,6 @@ import sqlite3
 import pandas as pd
 import os
 
-# WHAT: Automatically finding the folder where this script is saved.
-# WHY: This makes your project "Plug and Play" for GitHub users.
 current_folder = os.path.dirname(os.path.abspath(__file__))
 db_path = os.path.join(current_folder, "Metropolis_Mobility.db")
 output_path = os.path.join(current_folder, "Hourly_Summary.csv")
@@ -39,4 +37,5 @@ def export_to_excel_bridge():
 
 if __name__ == "__main__":
     export_to_excel_bridge()
+
 
