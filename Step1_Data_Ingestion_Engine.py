@@ -1,41 +1,38 @@
 import pandas as pd
 import sqlite3
-import requests
 import os
 
-# --- ARCHITECT'S NOTE: PATH MANAGEMENT ---
-# WHAT: Defining a raw string (r"") for your specific Windows directory.
-# WHY: Windows uses backslashes which Python can mistake for "escape characters." 
-# Using a raw string ensures the code finds your "Data Analyst Projects" folder perfectly.
-base_path = r"C:\Users\mansu\OneDrive\Desktop\Data Analyst Boot Camp\Data Analyst Projects\The_Metropolis_Mobility Ledger"
-db_path = os.path.join(base_path, "Metropolis_Mobility.db")
+# --- ARCHITECT'S NOTE: GLOBAL PATH MANAGEMENT ---
+# WHAT: Using a relative path strategy.
+# WHY: On GitHub, we want this script to be "Plug and Play." 
+# This command finds the folder where this specific script is saved on ANY computer.
+current_dir = os.path.dirname(os.path.abspath(__file__))
+db_path = os.path.join(current_dir, "Metropolis_Mobility.db")
 url = "https://d37ci6vzurychx.cloudfront.net/trip-data/yellow_tripdata_2024-01.parquet"
 
-# --- ARCHITECT'S NOTE: DIRECTORY VALIDATION ---
-# WHAT: Checking if the folder exists, and creating it if not.
-# WHY: A robust script shouldn't crash just because a folder is missing; it should be "self-healing."
-if not os.path.exists(base_path):
-    os.makedirs(base_path)
+def initialize_database():
+    print(f"--- Project Zenith: The Metropolis Mobility Ledger ---")
+    print("Status: Downloading Real-World NYC Data (Parquet)...")
 
-print(f"--- Project: The Metropolis Mobility Ledger ---")
-print("Status: Downloading Real-World NYC Data...")
+    try:
+        # --- ARCHITECT'S NOTE: DATA ACQUISITION ---
+        # WHAT: Pulling the Parquet file from the NYC Government Cloud.
+        # WHY: Parquet is the industry standard—it's small, fast, and professional.
+        data = pd.read_parquet(url)
 
-# --- ARCHITECT'S NOTE: DATA ACQUISITION ---
-# WHAT: Pulling the Parquet file from the NYC Government Cloud.
-# WHY: Parquet is the industry standard for "Big Data." It is 10x smaller than a CSV, 
-# making this download much faster for your machine.
-data = pd.read_parquet(url)
+        print("Status: Initializing SQL 'Vault'...")
 
-print("Status: Initializing SQL 'Vault'...")
+        # --- ARCHITECT'S NOTE: RELATIONAL STORAGE ---
+        # WHAT: Connecting to SQLite and injecting the first 100,000 rows.
+        # WHY: We use a 'Subset' to keep the "Command Center" lightning-fast.
+        conn = sqlite3.connect(db_path)
+        data.head(100000).to_sql('Fact_Trips', conn, if_exists='replace', index=False)
+        conn.close()
 
-# --- ARCHITECT'S NOTE: RELATIONAL STORAGE ---
-# WHAT: Connecting to SQLite and injecting the first 100,000 rows.
-# WHY: We use a 'Subset' (head) to ensure your Excel and Power BI tools remain 
-# lightning-fast while we build the logic. 100,000 rows is plenty for a high-level "Proof of Concept."
-conn = sqlite3.connect(db_path)
-data.head(100000).to_sql('Fact_Trips', conn, if_exists='replace', index=False)
-conn.close()
+        print(f"\n[SUCCESS] Database created at: {db_path}")
+        
+    except Exception as e:
+        print(f"\n[ERROR] An issue occurred during ingestion: {e}")
 
-print(f"\nSuccess! Database created at: {db_path}")
-
-
+if __name__ == "__main__":
+    initialize_database()
