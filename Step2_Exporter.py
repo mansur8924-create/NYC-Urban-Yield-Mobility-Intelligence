@@ -2,7 +2,6 @@ import sqlite3
 import pandas as pd
 import os
 
-# --- ARCHITECT'S NOTE: THE GLOBAL BRIDGE ---
 # WHAT: Automatically finding the folder where this script is saved.
 # WHY: This makes your project "Plug and Play" for GitHub users.
 current_folder = os.path.dirname(os.path.abspath(__file__))
@@ -14,7 +13,6 @@ def export_to_excel_bridge():
         # Connecting to the Vault
         conn = sqlite3.connect(db_path)
 
-        # --- THE EXTRACTION ---
         # WHAT: Creating a small, readable "Snapshot" of the 100,000+ rides.
         query = """
         SELECT 
@@ -28,7 +26,6 @@ def export_to_excel_bridge():
         
         df = pd.read_sql_query(query, conn)
 
-        # --- THE HANDOFF ---
         # WHAT: Saving as a CSV so Excel and Power BI can see the data.
         df.to_csv(output_path, index=False)
         
@@ -42,3 +39,4 @@ def export_to_excel_bridge():
 
 if __name__ == "__main__":
     export_to_excel_bridge()
+
