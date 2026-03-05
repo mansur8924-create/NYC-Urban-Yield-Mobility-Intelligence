@@ -2,8 +2,6 @@ import pandas as pd
 import sqlite3
 import os
 
-# WHAT: Using a relative path strategy.
-# WHY: On GitHub, we want this script to be "Plug and Play." 
 # This command finds the folder where this specific script is saved on ANY computer.
 current_dir = os.path.dirname(os.path.abspath(__file__))
 db_path = os.path.join(current_dir, "Metropolis_Mobility.db")
@@ -33,4 +31,5 @@ def initialize_database():
 
 if __name__ == "__main__":
     initialize_database()
+
 
