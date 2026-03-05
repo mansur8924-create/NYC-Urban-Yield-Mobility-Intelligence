@@ -2,7 +2,6 @@ import sqlite3
 import pandas as pd
 import os
 
-# WHAT: Using a relative path so this runs on ANY computer.
 db_name = "Metropolis_Mobility.db"
 script_dir = os.path.dirname(os.path.abspath(__file__))
 db_path = os.path.join(script_dir, db_name)
@@ -40,4 +39,5 @@ def run_analysis():
 
 if __name__ == "__main__":
     run_analysis()
+
 
