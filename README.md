@@ -1,25 +1,46 @@
 # NYC-Urban-Yield-Mobility-Intelligence
-a full-stack data engineering and analytics ecosystem designed to audit and optimize NYC transit operations. By synchronizing a local SQL database with Python automation, Excel/VBA operational tools, and Power BI strategic visuals, this project transforms 100,000+ raw trip records into actionable executive intelligence.
+a sophisticated data lifecycle project designed for Koogle's urban mobility division. It synchronizes four distinct technologies—SQL, Python, Excel/VBA, and Power BI—to transform 100,000+ raw NYC taxi transactions into a high-octane decision-support system.
 
-🛠️ The Technical Stack
-Database (SQL): Metropolis_Mobility.db – A relational SQLite database for high-speed transactional storage.
+⚠️ Critical Security Setup (For Reviewers)
+Because this project utilizes VBA Macros to bridge Excel and SQL, Windows will "Lock" the file by default for your safety. To enable the interactive features:
 
-Automation (Python): Step1_Data_Ingestion_Engine.py – Handles ETL (Extract, Transform, Load) processes, cleaning raw data for database insertion.
+Unblock the File: Right-click Metropolis_Command_Center.xlsm > Properties > Check the Unblock box at the bottom > OK.
 
-Operational UI (Excel/VBA): Metropolis_Command_Center.xlsm – A "no-code" audit interface using VBA to query the SQL database directly via a button-click.
+Enable Content: Upon opening the Excel file, click 'Enable Content' on the yellow security bar at the top.
 
-Strategic Vision (Power BI): NYC Urban Yield & Mobility Intelligence.pbix – An interactive dashboard utilizing AI-driven Decomposition Trees for root-cause revenue analysis.
+Keep Together: Ensure all files remain in the same folder to maintain the "Relative Path" connections.
 
-📈 Key Business Insights
-Peak Liquidity: Identified 12:00 PM (Noon) as the primary revenue driver, generating over $216,000 in a single hour.
+⚙️ Operating Instructions (The Flight Manual)
+To operate the "Metropolis Mobility" machine, follow these steps in order:
 
-The Midnight Economy: Discovered that Hour 0 (Midnight) represents a top-3 profit tier ($183k+), significantly outperforming the morning commute.
+Step 1: The Ingestion Engine (Python)
+Run Step1_Data_Ingestion.py.
 
-Yield Efficiency: While Noon has the highest volume, the 4:00 PM shift shows a higher tip-to-fare ratio, suggesting a shift toward high-margin passengers.
+Technical Note: Performs ETL (Extract, Transform, Load) on 100,000 records using the Parquet format for maximum efficiency.
 
-🚀 How to Run the Machine
-Run Step1_Data_Ingestion_Engine.py to initialize the database.
+Step 2: The Data Bridge (Python)
+Run Step2_Data_Bridge.py.
 
-Open Metropolis_Command_Center.xlsm, enter an hour (0-23), and click the "Update Dashboard" button to audit specific windows.
+Step 3: The Operational Audit (Excel/VBA)
+Open Metropolis_Command_Center.xlsm.
 
-Open the Power BI file to explore the interactive "Magic Tree" and spatial heatmaps.
+Technical Note: Uses VBA to perform an automated "Pull" from the SQL database, updating live revenue and tip metrics instantly.
+
+Step 4: Strategic Intelligence (Power BI)
+Open the Power BI file.
+
+📈 Final Business Insights
+Peak Revenue: Identified Hour 12 (Noon) as the primary revenue peak ($216k+).
+
+The Midnight Economy: Discovered that Hour 0 (Midnight) ranks as a top-3 profit window, outperforming the morning rush.
+
+Yield Efficiency: Leveraged dual-axis modeling to show that while volume is highest at noon, tip-to-fare ratios peak during late-evening transitions.
+
+🛠️ The Architect's Tech Stack
+SQL (SQLite): For relational storage and high-speed querying.
+
+Python (Pandas/OS): For automated data cleaning and portable path management.
+
+VBA: For bridging the gap between "Raw Data" and "User Experience."
+
+Power BI: For advanced spatial intelligence and root-cause analysis.
