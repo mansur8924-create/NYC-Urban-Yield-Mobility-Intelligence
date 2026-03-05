@@ -2,7 +2,6 @@ import sqlite3
 import pandas as pd
 import os
 
-# --- ARCHITECT'S NOTE: THE GLOBAL CONNECTION ---
 # WHAT: Using a relative path so this runs on ANY computer.
 db_name = "Metropolis_Mobility.db"
 script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -12,7 +11,6 @@ def run_analysis():
     try:
         conn = sqlite3.connect(db_path)
         
-        # --- ARCHITECT'S NOTE: THE "MONEY" QUERY ---
         # WHAT: Grouping 100,000+ rides by 'Hour' to find the "Gold Mines."
         query = """
         SELECT 
@@ -31,7 +29,6 @@ def run_analysis():
         print("--- THE HOURLY REVENUE REPORT ---")
         print(df_results.head(10)) 
 
-        # --- THE MIC DROP: EXPORTING ---
         # We save this to CSV so Power BI can read it instantly.
         df_results.to_csv("Hourly_Summary.csv", index=False)
         print("\n[SUCCESS] Hourly_Summary.csv has been updated for Power BI.")
@@ -43,3 +40,4 @@ def run_analysis():
 
 if __name__ == "__main__":
     run_analysis()
+
