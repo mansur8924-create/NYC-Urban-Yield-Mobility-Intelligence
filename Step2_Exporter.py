@@ -3,28 +3,33 @@ import pandas as pd
 import os
 
 """
-Trip Data Export Script
-
-Reads trip data from the local SQLite database and generates
-a simple hourly summary that can be opened in Excel or used
-in Power BI.
+PROJECT: NYC Taxi Hourly Summary Export
+PURPOSE: Read trip data from the local SQLite database and generate
+         a simple hourly summary for Excel or Power BI.
+AUTHOR: Mansur Mohammed
 """
 
-# Locate the folder where this script is stored
+# -------------------------------
+# Setup Paths
+# -------------------------------
+# Locate the folder where this script is running
 current_folder = os.path.dirname(os.path.abspath(__file__))
 
-# Paths for the database and exported CSV
+# Path to the local SQLite database
 db_path = os.path.join(current_folder, "Metropolis_Mobility.db")
+
+# Path for the exported CSV file
 output_path = os.path.join(current_folder, "Hourly_Summary.csv")
 
 
 def export_hourly_summary():
+    """Connect to the database and export a summary of trips by hour."""
     try:
-        print("Connecting to database...")
+        print("🗄️ Connecting to SQLite database...")
 
         conn = sqlite3.connect(db_path)
 
-        # SQL query to summarize rides by hour
+        # SQL query: summarize trips by hour
         query = """
         SELECT 
             strftime('%H', tpep_pickup_datetime) AS Hour,
@@ -36,19 +41,19 @@ def export_hourly_summary():
         ORDER BY Hour
         """
 
-        # Run query and load results into a dataframe
+        # Execute query and load results into a DataFrame
         df = pd.read_sql_query(query, conn)
 
-        # Save results as a CSV file
+        # Save the summary to CSV for Excel / Power BI
         df.to_csv(output_path, index=False)
 
         conn.close()
 
-        print("Export completed successfully.")
-        print(f"File saved to: {output_path}")
+        print("✅ Export completed successfully!")
+        print(f"📂 File saved at: {output_path}")
 
     except Exception as e:
-        print("An error occurred while exporting the data.")
+        print("❌ An error occurred while exporting the data.")
         print(f"Error details: {e}")
 
 
